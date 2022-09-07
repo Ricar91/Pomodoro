@@ -9,6 +9,9 @@ const itTask = document.querySelector("#itTask");
 const form = document.querySelector("#form");
 const taskName = document.querySelector("#time #taskName");
 
+renderTime();
+renderTasks();
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   if (itTask.value != "") {
@@ -34,7 +37,7 @@ function renderTasks() {
         <div class="task">
           <div class="completed">${
             task.completed
-              ? `<span class="done"></span>`
+              ? `<span class="done">Done</span>`
               : `<button class="start-button" data-id="${task.id}">Start</button>`
           }</div> 
           <div class="title">${task.title}</div> 
@@ -63,7 +66,7 @@ function startButtonHandler(id) {
   const taskIndex = tasks.findIndex((task) => task.id === id);
 
   taskName.textContent = tasks[taskIndex].title;
-
+  renderTime();
   timer = setInterval(() => {
     timerHandler(id);
   }, 1000);
@@ -85,6 +88,7 @@ function timerHandler(id) {
 function startBreak() {
   time = 3;
   taskName.textContent = "Break";
+  renderTime();
   timerBreak = setInterval(() => {
     timerBreakHandler();
   }, 1000);
